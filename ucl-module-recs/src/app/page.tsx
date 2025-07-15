@@ -1,95 +1,84 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+
+import { useState } from 'react'
+import styles from './page.module.css'
+
+type Module = {
+  slug: string
+  title: string
+  url: string
+  department: string
+  level: string
+  outline: string
+}
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState<Module[] | null>(null)
+  const [loading, setLoading] = useState(false)
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  const search = async () => {
+    setLoading(true)
+    const res = await fetch('/api/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query })
+    })
+    const data = await res.json()
+    setResults(data.results || [])
+    setLoading(false)
+  }
+
+  return (
+    <main className="bg-black min-h-screen">
+      <div className={styles.container}>
+        <h1 className={styles.title}>UCL Module Recommender</h1>
+        <p className={styles.subtitle}>
+          Describe your interests and level (e.g. "Data science for biology, year 1 Natural Sciences") to get tailored module suggestions.
+        </p>
+
+        <div className={styles.searchBar}>
+          <input
+            className={styles.input}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="e.g. synthetic biology, year 2"
+          />
+          <button onClick={search} className={styles.button}>
+            Search
+          </button>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+
+        {loading && <p className="text-gray-500">Searching Gemini...</p>}
+
+        {results && (
+          <>
+            {results.length === 0 ? (
+              <p className="text-gray-500">No matching modules found.</p>
+            ) : (
+              <div className={styles.cardGrid}>
+                {results.map((m) => (
+                  <a
+                    key={m.slug}
+                    href={m.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.card}
+                  >
+                    <h2 className={styles.cardTitle}>{m.title}</h2>
+                    <p className={styles.cardSub}>
+                      {m.department} — Level {m.level}
+                    </p>
+                    <p className={styles.cardText}>
+                      {m.outline.slice(0, 200)}...
+                    </p>
+                  </a>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </main>
+  )
 }
