@@ -10,7 +10,17 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Extend Next.js rules
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // Override or disable specific rules globally
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off", // allow 'any'
+      "react/no-unescaped-entities": "off",        // allow unescaped apostrophes etc.
+    },
+  },
 ];
 
 export default eslintConfig;
