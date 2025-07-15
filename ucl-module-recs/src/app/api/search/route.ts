@@ -50,8 +50,7 @@ if (!jsonMatch) {
     raw: text
   }, { status: 500 })
 }
-    
-    }
+
 
     let slugs: string[]
     try {
