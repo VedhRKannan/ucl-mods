@@ -41,13 +41,16 @@ Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemist
     const text = result.response.text()
     console.log('[Gemini raw response]', text)
 
-    const jsonMatch = text.match(/\[.*?\]/s)
-    if (!jsonMatch) {
-      console.error('[Parse error] No JSON array found in Gemini output')
-      return NextResponse.json({
-        error: 'Gemini response did not include a valid JSON array',
-        raw: text
-      }, { status: 500 })
+    const jsonMatch = text.match(/\[[\s\S]*?\]/)
+
+if (!jsonMatch) {
+  console.error('[Parse error] No JSON array found in Gemini output')
+  return NextResponse.json({
+    error: 'Gemini response did not include a valid JSON array',
+    raw: text
+  }, { status: 500 })
+}
+    
     }
 
     let slugs: string[]
