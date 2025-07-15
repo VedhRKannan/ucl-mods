@@ -5,6 +5,13 @@ import fs from 'fs/promises'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
+type Module = {
+  slug: string
+  title: string
+  outline: string
+  [key: string]: any
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { query } = await req.json()
@@ -14,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     const filePath = path.join(process.cwd(), 'public/ucl_modules_structured.json')
     const file = await fs.readFile(filePath, 'utf-8')
-    const data = JSON.parse(file)
+    const data: Module[] = JSON.parse(file)
 
     const prompt = `
 You are a helpful university module assistant. A student said:
@@ -34,7 +41,6 @@ Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemist
     const text = result.response.text()
     console.log('[Gemini raw response]', text)
 
-    // try matching a JSON array from the response
     const jsonMatch = text.match(/\[.*?\]/s)
     if (!jsonMatch) {
       console.error('[Parse error] No JSON array found in Gemini output')
@@ -44,7 +50,7 @@ Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemist
       }, { status: 500 })
     }
 
-    let slugs: string[] = []
+    let slugs: string[]
     try {
       slugs = JSON.parse(jsonMatch[0])
     } catch (e) {
@@ -55,11 +61,12 @@ Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemist
       }, { status: 500 })
     }
 
-    const results = data.filter((m: any) => slugs.includes(m.slug))
+    const results = data.filter((m) => slugs.includes(m.slug))
     return NextResponse.json({ results })
 
-  } catch (err: any) {
-    console.error('[Fatal Gemini error]', err)
-    return NextResponse.json({ error: err.message || 'Unknown error' }, { status: 500 })
+  } catch (err: unknown) {
+    const error = err instanceof Error ? err.message : 'Unknown error'
+    console.error('[Fatal Gemini error]', error)
+    return NextResponse.json({ error }, { status: 500 })
   }
 }
