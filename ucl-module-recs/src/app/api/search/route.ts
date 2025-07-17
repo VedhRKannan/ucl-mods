@@ -35,7 +35,7 @@ ${data.slice(0, 40).map(m => `- ${m.title} (${m.slug}): ${m.outline}`).join('\n'
 Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemistry-CHEM0008", ...])
 `.trim()
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
     const result = await model.generateContent(prompt)
 
     const text = result.response.text()
