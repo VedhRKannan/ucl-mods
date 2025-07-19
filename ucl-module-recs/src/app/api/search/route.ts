@@ -24,13 +24,15 @@ export async function POST(req: NextRequest) {
     const data: Module[] = JSON.parse(file)
 
     const prompt = `
-You are a helpful university module assistant. A student said:
+You are a helpful UCL module selection assistant. A student said:
 
 "${query}"
 
 Here are some modules:
 
 ${data.slice(0, 40).map(m => `- ${m.title} (${m.slug}): ${m.outline}`).join('\n')}
+
+Remember that FHEQ level 4 is first year undergraduate, levels 4/5 is second year, and levels 5/6 is third year. Also remember to account for restrictions and prerequisites.
 
 Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemistry-CHEM0008", ...])
 `.trim()
