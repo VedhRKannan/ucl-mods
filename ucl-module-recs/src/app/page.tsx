@@ -42,7 +42,7 @@ export default function Home() {
             className={styles.input}
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="e.g. synthetic biology, year 2"
+            placeholder="e.g. biomed and maths, year 2"
           />
           <button onClick={search} className={styles.button}>
             Search
