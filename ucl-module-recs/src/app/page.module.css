@@ -22,13 +22,38 @@
   flex-direction: column;
   gap: 3rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
+.searchBar input,
+.searchBar textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.searchBar textarea {
+  overflow-y: auto;
+  line-height: 1.5;
+  min-height: 4rem;
+}
+
+/* Responsive adjustment */
 @media (min-width: 640px) {
   .searchBar {
     flex-direction: row;
   }
+
+  .searchBar input,
+  .searchBar textarea {
+    flex: 1;
+  }
 }
+
 
 .input {
   flex: 1;
