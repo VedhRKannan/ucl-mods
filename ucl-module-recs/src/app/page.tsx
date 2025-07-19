@@ -38,12 +38,14 @@ export default function Home() {
         </p>
 
         <div className={styles.searchBar}>
-          <input
-            className={styles.input}
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="e.g. biomed and maths, year 2"
-          />
+            <textarea
+                className={styles.input}
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder="e.g. biomed and maths, year 2"
+                rows={1}
+                />
+
           <button onClick={search} className={styles.button}>
             Search
           </button>
