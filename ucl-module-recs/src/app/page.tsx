@@ -16,6 +16,15 @@ export default function Home() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Module[] | null>(null)
   const [loading, setLoading] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = 'auto'; // Reset
+      el.style.height = `${el.scrollHeight}px`; // Expand to fit content
+    }
+  }, [query]);
 
   const search = async () => {
     setLoading(true)
