@@ -1,3 +1,22 @@
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: white;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #999;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
 .searchBar {
   display: flex;
   flex-direction: column;
@@ -28,4 +47,75 @@
   .input {
     flex: 1;
   }
+}
+
+.input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background: #e2e2e2;
+}
+
+.cardGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  background: white;
+  color: black;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.cardSub {
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.cardText {
+  font-size: 0.95rem;
+  color: #222;
 }
