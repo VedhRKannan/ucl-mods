@@ -9,7 +9,7 @@
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #FFCA36; 
+  color: #f6f5f0; 
 }
 
 .subtitle {
@@ -35,7 +35,7 @@
   resize: none;
   overflow: visible;
   box-sizing: border-box;
-  border: 1px solid #34C6C6;
+  border: 1px solid #111818;
   border-radius: 0.5rem;
   transition: height 0.2s ease;
   background: #002248; 
@@ -58,7 +58,7 @@
 
 .button {
   padding: 0.75rem 1.5rem;
-  background: #FFCA36; /* Yellow Vibrant */
+  background: #fcfbf8; /* Yellow Vibrant */
   color: #000000;
   border-radius: 8px;
   font-weight: 600;
@@ -67,7 +67,7 @@
 }
 
 .button:hover {
-  background: #e6b932; /* Slightly darker yellow on hover */
+  background: #a09f9d; /* Slightly darker yellow on hover */
 }
 
 .cardGrid {
@@ -101,7 +101,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
-  color: #500778;
+  color: #000000;
 }
 
 .cardSub {
