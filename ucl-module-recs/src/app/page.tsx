@@ -2,7 +2,6 @@
 import { Analytics } from "@vercel/analytics/next"
 import { useRef, useState, useEffect } from 'react'
 import styles from './page.module.css'
-import Head from "next/head"
 
 type Module = {
   slug: string
@@ -40,14 +39,6 @@ export default function Home() {
   }
 
   return (
-    <>
-    <Head>
-      <title>UCL Module Recommender</title>
-      <link rel="icon" href="/favicon.ico" />
-      
-    </Head> 
-      
-
     <main className="bg-black min-h-screen">
       <div className={styles.container}>
         <h1 className={styles.title}>UCL Module Recommender</h1>
@@ -98,8 +89,7 @@ export default function Home() {
             )}
           </>
         )}
-    </div>
-  </main>
-  </>
+      </div>
+    </main>
   )
 }
