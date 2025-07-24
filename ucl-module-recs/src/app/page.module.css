@@ -116,7 +116,11 @@
 }
 
 /* Overall background (e.g. set in <main>) */
-:global(body),
-:global(main) {
-  background: #500778; 
+:global(body) {
+  background: #500778;
 }
+
+:global(main) {
+  background: #500778;
+}
+
