@@ -115,9 +115,5 @@
   color: #222;
 }
 
-/* Overall background (e.g. set in <main>) */
-.root :global(body),
-.root :global(main) {
-  background: #500778;
-}
+
 

@@ -40,3 +40,8 @@ a {
     color-scheme: dark;
   }
 }
+
+body,
+main {
+  background: #500778; /* Purple / Vibrant */
+}
