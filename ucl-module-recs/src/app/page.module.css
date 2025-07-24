@@ -9,10 +9,11 @@
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #FFCA36; 
 }
 
 .subtitle {
-  color: #999;
+  color: #CCCCCC;
   font-size: 1rem;
   margin-bottom: 2rem;
 }
@@ -31,12 +32,18 @@
   padding: 0.75rem 1rem;
   font-size: 1rem;
   line-height: 1.5;
-  resize: none;             /* prevent manual resizing */
-  overflow: visible;         /* shows scroller */
+  resize: none;
+  overflow: visible;
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid #34C6C6;
   border-radius: 0.5rem;
   transition: height 0.2s ease;
+  background: #002248; 
+  color: white;
+}
+
+.input::placeholder {
+  color: #888;
 }
 
 @media (min-width: 640px) {
@@ -49,31 +56,18 @@
   }
 }
 
-.input {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 8px;
-  color: white;
-  font-size: 1rem;
-}
-
-.input::placeholder {
-  color: #666;
-}
-
 .button {
   padding: 0.75rem 1.5rem;
-  background: white;
-  color: black;
+  background: #FFCA36; /* Yellow Vibrant */
+  color: #000000;
   border-radius: 8px;
-  font-weight: 500;
-  transition: background 0.2s;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  border: none;
 }
 
 .button:hover {
-  background: #e2e2e2;
+  background: #e6b932; /* Slightly darker yellow on hover */
 }
 
 .cardGrid {
@@ -107,6 +101,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
+  color: #500778;
 }
 
 .cardSub {
@@ -118,4 +113,10 @@
 .cardText {
   font-size: 0.95rem;
   color: #222;
+}
+
+/* Overall background (e.g. set in <main>) */
+body,
+main {
+  background: #500778; 
 }
