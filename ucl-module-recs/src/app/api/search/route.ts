@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
+import { db } from '/lib/firebase.ts'
 import fs from 'fs/promises'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
@@ -15,6 +16,11 @@ type Module = {
 export async function POST(req: NextRequest) {
   try {
     const { query } = await req.json()
+    await db.collection('searchQueries').add({
+        query,
+        timestamp: new Date().toISOString()
+      })
+      
     if (!query) {
       return NextResponse.json({ error: 'Missing query' }, { status: 400 })
     }
