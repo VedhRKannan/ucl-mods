@@ -1,5 +1,10 @@
 import admin from 'firebase-admin'
-import serviceAccount from '@/firebaseServiceAccount.json'
+import path from 'path'
+import fs from 'fs'
+
+const serviceAccount = JSON.parse(
+  fs.readFileSync(path.resolve(process.cwd(), 'firebaseServiceAccount.json'), 'utf8')
+)
 
 if (!admin.apps.length) {
   admin.initializeApp({
