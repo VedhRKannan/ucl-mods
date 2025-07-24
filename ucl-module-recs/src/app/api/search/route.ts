@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
-import { db } from '/lib/firebase.ts'
+import { db } from '../firebase'
 import fs from 'fs/promises'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
