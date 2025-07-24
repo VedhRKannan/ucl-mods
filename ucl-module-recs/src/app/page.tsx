@@ -43,7 +43,7 @@ export default function Home() {
       <div className={styles.container}>
         <h1 className={styles.title}>UCL Module Recommender</h1>
         <p className={styles.subtitle}>
-          Describe your interests and level (e.g. "Data science for biology, year 1 Natural Sciences") to get tailored module suggestions.
+          Describe your interests and level (e.g. "Organic chemistry and neuroscience, year 2 Natural Sciences") to get tailored module suggestions. Also check for prerequisites by asking "What are the prerequisite modules for CHEM0019?"
         </p>
 
         <div className={styles.searchBar}>
@@ -60,7 +60,7 @@ export default function Home() {
           </button>
         </div>
 
-        {loading && <p className="text-gray-500">Searching Gemini...</p>}
+        {loading && <p className="text-gray-500">Searching...</p>}
 
         {results && (
           <>
