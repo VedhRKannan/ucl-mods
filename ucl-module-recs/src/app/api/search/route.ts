@@ -55,7 +55,7 @@ const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 const result = await model.generateContent({
   contents: [{ role: "user", parts: [{ text: prompt }] }],
   generationConfig: {
-    temperature: 0.2  // Lower = more deterministic
+    temperature: 0.0  // Lower = more deterministic
   }
 })
 
