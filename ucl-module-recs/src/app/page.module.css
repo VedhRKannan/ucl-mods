@@ -21,7 +21,7 @@
 .searchBar {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -57,7 +57,7 @@
 }
 
 .button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.0rem;
   background: #fcfbf8; /* Yellow Vibrant */
   color: #000000;
   border-radius: 8px;
