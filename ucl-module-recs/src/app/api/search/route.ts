@@ -43,7 +43,7 @@ Remember:
 -FHEQ Level 5 = Year 2
 -FHEQ Levels 5/6 = Year 3
 -Level 7 modules can also be taken by Year 3 students
--Always respect module restrictions and prerequisites. This is very important.
+-Always respect module restrictions and prerequisites. Students studying streams like biomed and maths can't do chemistry modules while those in chemistry can't always to statistics etc. This is very important.
 
 Prioritise modules where at least 3 of the following keys strongly match the student’s query: "subject", "title", "outline", "restrictions", "level".  
 If fewer than 3 match, fall back to modules where *2 keys match strongly. If fewer than 2, include only modules where 1 key (preferably "subject", "title", or "outline") matches well.
