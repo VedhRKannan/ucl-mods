@@ -38,16 +38,29 @@ Here are some modules:
 
 ${data.slice(0, 40).map(m => `- ${m.title} (${m.slug}): ${m.outline}`).join('\n')}
 
-Remember that FHEQ level 4 is first year undergraduate, levels 4/5 is second year, and levels 5/6 is third year. Also remember to account for restrictions and prerequisites.
+Remember:
+-FHEQ Level 4 = Year 1
+-FHEQ Level 5 = Year 2
+-FHEQ Levels 5/6 = Year 3
+-Level 7 modules can also be taken by Year 3 students
+-Always respect module restrictions and prerequisites. This is very important.
 
+Prioritise modules where at least 3 of the following keys strongly match the student’s query: "subject", "title", "outline", "restrictions", "level".  
+If fewer than 3 match, fall back to modules where *2 keys match strongly. If fewer than 2, include only modules where 1 key (preferably "subject", "title", or "outline") matches well.
 Respond ONLY with a JSON array of slugs that match (e.g. ["basic-organic-chemistry-CHEM0008", ...])
 `.trim()
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
-    const result = await model.generateContent(prompt)
+const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
 
-    const text = result.response.text()
-    console.log('[Gemini raw response]', text)
+const result = await model.generateContent({
+  contents: [{ role: "user", parts: [{ text: prompt }] }],
+  generationConfig: {
+    temperature: 0.2  // Lower = more deterministic
+  }
+})
+
+const text = result.response.text()
+console.log('[Gemini raw response]', text)
 
     const jsonMatch = text.match(/\[[\s\S]*?\]/)
 
