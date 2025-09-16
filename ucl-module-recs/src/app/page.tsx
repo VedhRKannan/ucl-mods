@@ -1,7 +1,7 @@
 'use client'
 
 import { Analytics } from '@vercel/analytics/next'
-import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect, useMemo, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import styles from './page.module.css'
@@ -158,17 +158,33 @@ export default function Home() {
       </div>
 
       {/* Modal overlay driven by ?m= */}
-      {selectedSlug && (
-        <ModuleModal
-          slug={selectedSlug}
-          onClose={() => router.push('/', { scroll: false })}
-        />
-      )}
+        <Suspense fallback={null}>
+        <ModalFromQuery />
+      </Suspense>
+      
 
       <Analytics />
     </main>
   )
 }
+
+
+
+function ModalFromQuery() {
+  const router = useRouter();
+  const params = useSearchParams();         // <-- safe inside Suspense
+  const slug = params.get('m');
+
+  if (!slug) return null;
+  return (
+    <ModuleModal
+      slug={slug}
+      onClose={() => router.push('/', { scroll: false })}
+    />
+  );
+}
+
+
 
 /* --------------------
    Modal component
