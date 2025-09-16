@@ -1,0 +1,147 @@
+{
+    "chemical-dynamics-CHEM0021": {
+      "latestYear": "2024/25",
+      "meanMark": 60.76,
+      "yearsAvailable": 5,
+      "studentsLatest": 32,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~0" },
+        { "range": "10.00–19.99%", "count": "~0" },
+        { "range": "20.00–29.99%", "count": "~0" },
+        { "range": "30.00–39.99%", "count": "~<5" },
+        { "range": "40.00–49.99%", "count": "~<5" },
+        { "range": "50.00–59.99%", "count": "~9" },
+        { "range": "60.00–69.99%", "count": "~6" },
+        { "range": "70.00–79.99%", "count": "~9" },
+        { "range": "80.00–89.99%", "count": "~<5" },
+        { "range": "90.00%+", "count": "~0" }
+      ]
+    },
+    "organic-reaction-mechanisms-CHEM0018": {
+      "latestYear": "2024/25",
+      "meanMark": 63.64,
+      "yearsAvailable": 5,
+      "studentsLatest": 79,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~0" },
+        { "range": "10.00–19.99%", "count": "~0" },
+        { "range": "20.00–29.99%", "count": "~<5" },
+        { "range": "30.00–39.99%", "count": "~6" },
+        { "range": "40.00–49.99%", "count": "~8" },
+        { "range": "50.00–59.99%", "count": "~13" },
+        { "range": "60.00–69.99%", "count": "~17" },
+        { "range": "70.00–79.99%", "count": "~23" },
+        { "range": "80.00–89.99%", "count": "~7" },
+        { "range": "90.00%+", "count": "~<5" }
+      ]
+    },
+    "structure-and-function-of-nervous-systems-PHOL0005": {
+      "latestYear": "2024/25",
+      "meanMark": 57.18,
+      "yearsAvailable": 5,
+      "studentsLatest": 120,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~0" },
+        { "range": "10.00–19.99%", "count": "~<5" },
+        { "range": "20.00–29.99%", "count": "~<5" },
+        { "range": "30.00–39.99%", "count": "~<5" },
+        { "range": "40.00–49.99%", "count": "~21" },
+        { "range": "50.00–59.99%", "count": "~40" },
+        { "range": "60.00–69.99%", "count": "~38" },
+        { "range": "70.00–79.99%", "count": "~14" },
+        { "range": "80.00–89.99%", "count": "~0" },
+        { "range": "90.00%+", "count": "~0" }
+      ]
+    },
+    "brain-and-behaviour-PSYC0014": {
+      "latestYear": "2024/25",
+      "meanMark": 67.35,
+      "yearsAvailable": 5,
+      "studentsLatest": 160,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~0" },
+        { "range": "10.00–19.99%", "count": "~0" },
+        { "range": "20.00–29.99%", "count": "~0" },
+        { "range": "30.00–39.99%", "count": "~0" },
+        { "range": "40.00–49.99%", "count": "~<5" },
+        { "range": "50.00–59.99%", "count": "~7" },
+        { "range": "60.00–69.99%", "count": "~99" },
+        { "range": "70.00–79.99%", "count": "~52" },
+        { "range": "80.00–89.99%", "count": "~0" },
+        { "range": "90.00%+", "count": "~0" }
+      ]
+    },
+    "evolutionary-genetics-BIOL0011": {
+      "latestYear": "2024/25",
+      "meanMark": 61.01,
+      "yearsAvailable": 5,
+      "studentsLatest": 74,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~<5" },
+        { "range": "10.00–19.99%", "count": "~0" },
+        { "range": "20.00–29.99%", "count": "~0" },
+        { "range": "30.00–39.99%", "count": "~0" },
+        { "range": "40.00–49.99%", "count": "~8" },
+        { "range": "50.00–59.99%", "count": "~15" },
+        { "range": "60.00–69.99%", "count": "~37" },
+        { "range": "70.00–79.99%", "count": "~11" },
+        { "range": "80.00–89.99%", "count": "~0" },
+        { "range": "90.00%+", "count": "~0" }
+      ]
+    },
+    "regression-modelling-STAT0006": {
+      "latestYear": "2024/25",
+      "meanMark": 69.66,
+      "yearsAvailable": 5,
+      "studentsLatest": 274,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~0" },
+        { "range": "10.00–19.99%", "count": "~0" },
+        { "range": "20.00–29.99%", "count": "~<5" },
+        { "range": "30.00–39.99%", "count": "~<5" },
+        { "range": "40.00–49.99%", "count": "~<5" },
+        { "range": "50.00–59.99%", "count": "~19" },
+        { "range": "60.00–69.99%", "count": "~108" },
+        { "range": "70.00–79.99%", "count": "~114" },
+        { "range": "80.00–89.99%", "count": "~23" },
+        { "range": "90.00%+", "count": "~<5" }
+      ]
+    },
+    "electricity-and-magnetism-PHAS0021": {
+      "latestYear": "2024/25",
+      "meanMark": 65.25,
+      "yearsAvailable": 5,
+      "studentsLatest": 216,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~<5" },
+        { "range": "10.00–19.99%", "count": "~<5" },
+        { "range": "20.00–29.99%", "count": "~<5" },
+        { "range": "30.00–39.99%", "count": "~7" },
+        { "range": "40.00–49.99%", "count": "~24" },
+        { "range": "50.00–59.99%", "count": "~33" },
+        { "range": "60.00–69.99%", "count": "~55" },
+        { "range": "70.00–79.99%", "count": "~49" },
+        { "range": "80.00–89.99%", "count": "~29" },
+        { "range": "90.00%+", "count": "~11" }
+      ]
+    },
+    "mathematical-methods-III-PHAS0025": {
+      "latestYear": "2024/25",
+      "meanMark": 61.12,
+      "yearsAvailable": 5,
+      "studentsLatest": 228,
+      "gradeDistribution": [
+        { "range": "00.01–9.99%", "count": "~<5" },
+        { "range": "10.00–19.99%", "count": "~<5" },
+        { "range": "20.00–29.99%", "count": "~<5" },
+        { "range": "30.00–39.99%", "count": "~19" },
+        { "range": "40.00–49.99%", "count": "~30" },
+        { "range": "50.00–59.99%", "count": "~41" },
+        { "range": "60.00–69.99%", "count": "~53" },
+        { "range": "70.00–79.99%", "count": "~45" },
+        { "range": "80.00–89.99%", "count": "~23" },
+        { "range": "90.00%+", "count": "~9" }
+      ]
+    }
+  }
+  
