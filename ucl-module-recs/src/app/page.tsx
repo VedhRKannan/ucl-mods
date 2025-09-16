@@ -1,5 +1,6 @@
 'use client'
-import { Analytics } from "@vercel/analytics/next"
+
+import { Analytics } from '@vercel/analytics/next'
 import { useRef, useState, useEffect } from 'react'
 import styles from './page.module.css'
 
@@ -16,56 +17,84 @@ export default function Home() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Module[] | null>(null)
   const [loading, setLoading] = useState(false)
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  // autosize textarea
   useEffect(() => {
-    const el = textareaRef.current;
-    if (el) {
-      el.style.height = 'auto'; // Reset
-      el.style.height = `${el.scrollHeight}px`; // Expand to fit content
-    }
-  }, [query]);
+    const el = textareaRef.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }, [query])
 
   const search = async () => {
+    if (!query.trim()) return
     setLoading(true)
-    const res = await fetch('/api/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query })
-    })
-    const data = await res.json()
-    setResults(data.results || [])
-    setLoading(false)
+    try {
+      const res = await fetch('/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query }),
+      })
+      const data = await res.json()
+      setResults(data.results || [])
+    } catch (e) {
+      console.error(e)
+      setResults([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <main className="bg-black min-h-screen">
-      <div className={styles.container}>
+    <main>
+      <div className={`${styles.container}`}>
         <h1 className={styles.title}>UCL Module Recommender</h1>
         <p className={styles.subtitle}>
-          Describe your interests and level (e.g. "Organic chemistry and neuroscience, year 2 Natural Sciences") to get tailored module suggestions. Also check for prerequisites by asking "What are the prerequisite modules for CHEM0019?"
+          Describe your interests and level (e.g. “Organic chemistry and neuroscience, year 2 Natural Sciences”) to get tailored module suggestions.
+          Also check for prerequisites by asking “What are the prerequisite modules for CHEM0019?”
         </p>
 
         <div className={styles.searchBar}>
-            <textarea
-                className={styles.input}
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                placeholder="e.g. biomed and maths, year 2"
-                rows={1}
-                />
-
-          <button onClick={search} className={styles.button}>
-            Search
+          <textarea
+            ref={textareaRef}
+            className={styles.input}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                search()
+              }
+            }}
+            placeholder="e.g. biomed and maths, year 2"
+            rows={1}
+            aria-label="Search query"
+          />
+          <button
+            onClick={search}
+            className={styles.button}
+            disabled={loading}
+          >
+            {loading ? 'Searching…' : 'Search'}
           </button>
         </div>
 
-        {loading && <p className="text-gray-500">Searching...</p>}
+        {loading && (
+          <div className={styles.loadingWrap} aria-live="polite">
+            <span className={styles.loadingText}>Searching…</span>
+            <span className={styles.orbit} aria-hidden="true">
+              <span className={styles.bolt} role="img" aria-label="lightning">
+                ⚡️
+              </span>
+            </span>
+          </div>
+        )}
 
-        {results && (
+        {results && !loading && (
           <>
             {results.length === 0 ? (
-              <p className="text-gray-500">No matching modules found.</p>
+              <p className={styles.empty}>No matching modules found.</p>
             ) : (
               <div className={styles.cardGrid}>
                 {results.map((m) => (
@@ -81,7 +110,7 @@ export default function Home() {
                       {m.department} — Level {m.level}
                     </p>
                     <p className={styles.cardText}>
-                      {m.outline.slice(0, 200)}...
+                      {m.outline.slice(0, 200)}…
                     </p>
                   </a>
                 ))}
@@ -89,6 +118,8 @@ export default function Home() {
             )}
           </>
         )}
+
+        <Analytics />
       </div>
     </main>
   )

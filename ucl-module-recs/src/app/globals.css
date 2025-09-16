@@ -1,43 +1,83 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ===============================
+   Global theme, background, type
+   =============================== */
 
-@media (prefers-color-scheme: dark) {
+   @font-face {
+    font-family: 'InterVar';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: local('Inter'),
+         url('/fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype-variations');
+  }
+  
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-0: #0b1220;         /* page background */
+    --bg-1: #0f1b2e;         /* card surface */
+    --bg-2: #14243e;         /* hover surface */
+    --txt-1: #e9eefb;        /* primary text */
+    --txt-2: #b5c2de;        /* secondary text */
+    --txt-3: #8ea1c6;        /* muted */
+    --brand: #7aa2ff;        /* accent */
+    --glow: #7aa2ff40;       /* focus glow */
+    --ring: #2a3f67;
+    --card-border: #223353;
+    --shadow-1: 0 6px 24px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.25);
+    --radius-lg: 14px;
+    --radius-xl: 18px;
   }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    color: var(--txt-1);
+    background:
+      radial-gradient(1200px 700px at 20% -10%, #1c2751 0%, transparent 60%),
+      radial-gradient(900px 600px at 85% 10%, #243a7a 0%, transparent 55%),
+      radial-gradient(1200px 800px at 50% 120%, #0e264d 0%, transparent 60%),
+      var(--bg-0);
+    font-family: InterVar, Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.5;
   }
-}
-
+  
+  /* Subtle star field */
+  body::before, body::after {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(2px 2px at 10% 20%, #ffffff66 20%, transparent 22%),
+      radial-gradient(2px 2px at 70% 30%, #ffffff80 20%, transparent 22%),
+      radial-gradient(1.5px 1.5px at 30% 70%, #ffffff4d 20%, transparent 22%),
+      radial-gradient(1.5px 1.5px at 85% 60%, #ffffff33 20%, transparent 22%);
+    opacity: .35;
+    z-index: 0;
+  }
+  body::after {
+    filter: blur(0.4px) brightness(1.1);
+    opacity: .25;
+  }
+  
+  /* Generic layout helpers used by page.module.css as well */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+    position: relative;
+    z-index: 1;
+  }
+  .h1 {
+    font-size: clamp(28px, 3.2vw, 40px);
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    margin: 8px 0 6px;
+  }
+  .subtitle {
+    color: var(--txt-2);
+    font-size: clamp(14px, 1.6vw, 16px);
+    margin-bottom: 22px;
+  }
+  
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
