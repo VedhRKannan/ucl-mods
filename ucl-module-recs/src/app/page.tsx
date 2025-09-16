@@ -161,6 +161,10 @@ export default function Home() {
                       {m.department} — Level {m.level}
                     </p>
                     <p className={styles.cardText}>{m.outline.slice(0, 200)}…</p>
+                    <div className={styles.cardHintRow}>
+                <span className={styles.cardHintText}>Click to view details</span>
+                <span className={styles.cardHintArrow} aria-hidden="true">→</span>
+              </div>
                   </button>
                 ))}
               </div>
