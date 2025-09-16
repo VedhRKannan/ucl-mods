@@ -1,7 +1,8 @@
 'use client'
+
 import { Analytics } from '@vercel/analytics/next'
-import { useRef, useState, useEffect, useMemo, Suspense } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import styles from './page.module.css'
 
@@ -52,12 +53,12 @@ export default function Home() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Module[] | null>(null)
   const [loading, setLoading] = useState(false)
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
+
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-
   const router = useRouter()
-  const params = useSearchParams()
-  const selectedSlug = params.get('m')
 
+  // Auto-resize textarea
   useEffect(() => {
     const el = textareaRef.current
     if (el) {
@@ -65,6 +66,17 @@ export default function Home() {
       el.style.height = `${el.scrollHeight}px`
     }
   }, [query])
+
+  // Sync local state from ?m= on first mount and on back/forward
+  useEffect(() => {
+    const read = () => {
+      const qs = new URLSearchParams(window.location.search)
+      setSelectedSlug(qs.get('m'))
+    }
+    read()
+    window.addEventListener('popstate', read)
+    return () => window.removeEventListener('popstate', read)
+  }, [])
 
   const search = async () => {
     if (!query.trim()) return
@@ -137,7 +149,10 @@ export default function Home() {
                     key={m.slug}
                     type="button"
                     className={styles.card}
-                    onClick={() => router.push(`/?m=${m.slug}`, { scroll: false })}
+                    onClick={() => {
+                      router.push(`/?m=${m.slug}`, { scroll: false })
+                      setSelectedSlug(m.slug) // open modal immediately
+                    }}
                     aria-haspopup="dialog"
                     aria-controls="module-modal"
                   >
@@ -145,8 +160,6 @@ export default function Home() {
                     <p className={styles.cardSub}>
                       {m.department} — Level {m.level}
                     </p>
-
-                    {/* optional chips if you later hydrate with stats in search */}
                     <p className={styles.cardText}>{m.outline.slice(0, 200)}…</p>
                   </button>
                 ))}
@@ -156,34 +169,21 @@ export default function Home() {
         )}
       </div>
 
-      {/* Modal overlay driven by ?m= */}
-        <Suspense fallback={null}>
-        <ModalFromQuery />
-      </Suspense>
-      
+      {/* Modal overlay driven by local state (synced with ?m=) */}
+      {selectedSlug && (
+        <ModuleModal
+          slug={selectedSlug}
+          onClose={() => {
+            router.push('/', { scroll: false })
+            setSelectedSlug(null)
+          }}
+        />
+      )}
 
       <Analytics />
     </main>
   )
 }
-
-
-
-function ModalFromQuery() {
-  const router = useRouter();
-  const params = useSearchParams();         // <-- safe inside Suspense
-  const slug = params.get('m');
-
-  if (!slug) return null;
-  return (
-    <ModuleModal
-      slug={slug}
-      onClose={() => router.push('/', { scroll: false })}
-    />
-  );
-}
-
-
 
 /* --------------------
    Modal component
@@ -250,12 +250,11 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
       >
         <div style={{ fontSize: 12, opacity: .85, marginBottom: 4 }}>{label}</div>
         <div style={{ fontWeight: 800, fontSize: 16, lineHeight: '18px' }}>
-          {p.payload.raw /* show raw only, e.g. "~37" */}
+          {p.payload.raw /* raw only, e.g. "~37" */}
         </div>
       </div>
     );
   };
-  
 
   // ---- Load data from /public JSONs ----
   useEffect(() => {
@@ -424,7 +423,7 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
               <div className={styles.panelTitleWrap}>
                 <div className={styles.panelIcon}>📅</div>
                 <h2 className={styles.panelTitle}>Academic Years</h2>
-                <span className={styles.muted}>({years.length} years available)</span>
+                <span className={styles.muted}>({(record.yearData?.length ?? 0)} years available)</span>
               </div>
             </div>
 
@@ -466,7 +465,7 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
           </section>
         )}
 
-        {/* Tabs */}
+        {/* Tabs (only if we truly have multi-year base data) */}
         <div className={styles.tabsBar}>
           {(record.yearData?.length ?? 0) > 1 && (
             <>
@@ -494,7 +493,9 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
                 <div className={styles.panelIcon}>📈</div>
                 <h2 className={styles.panelTitle}>Grade Distribution</h2>
                 {year && <span className={styles.muted}> ({year})</span>}
-                {hasOnlyStatsDist && stats?.latestYear === year }
+                {hasOnlyStatsDist && stats?.latestYear === year && (
+                  <span className={styles.muted}>&nbsp;• from summary stats</span>
+                )}
               </div>
             </div>
 
@@ -506,11 +507,6 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
                       <linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor={BLUE_1} />
                         <stop offset="100%" stopColor={BLUE_2} />
-                      </linearGradient>
-                      <linearGradient id="barFillActive" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#9db7ff" />
-                        <stop offset="100%" stopColor="#4b6fd6" />
-
                       </linearGradient>
                     </defs>
 
@@ -550,16 +546,20 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
                       <stop offset="0%" stopColor={TEAL_1} />
                       <stop offset="100%" stopColor={TEAL_2} />
                     </linearGradient>
-                    <linearGradient id="avgFillActive" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#99f2de" />
-                      <stop offset="100%" stopColor="#2db39c" />
-                    </linearGradient>
                   </defs>
 
                   <CartesianGrid stroke={GRID_STROKE} vertical={false} />
                   <XAxis dataKey="year" tick={AXIS_TICK} />
                   <YAxis allowDecimals={false} tick={AXIS_TICK} />
-                  <Tooltip content={<SelectedTooltip />}cursor={false} />
+                  <Tooltip
+                    cursor={false}
+                    contentStyle={{
+                      background: 'rgba(18,29,52,0.95)',
+                      border: '1px solid #223353',
+                      borderRadius: 12,
+                      color: '#eaf1ff',
+                    }}
+                  />
                   <Bar
                     dataKey="mean"
                     name="Mean mark"
@@ -589,6 +589,7 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
                   <XAxis dataKey="year" tick={AXIS_TICK} />
                   <YAxis allowDecimals={false} tick={AXIS_TICK} />
                   <Tooltip
+                    cursor={false}
                     contentStyle={{
                       background: 'rgba(18,29,52,0.95)',
                       border: '1px solid #223353',
@@ -616,8 +617,6 @@ function ModuleModal({ slug, onClose }: { slug: string; onClose: () => void }) {
     </div>
   );
 }
-
-
 
 function approxToNumber(v: number | string): number {
   if (typeof v === 'number') return v
